@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Arts - Futuristic Digital Portfolio</title>
+    <meta name="description" content="Dev Arts - High-tech futuristic portfolio showcasing creative work and digital innovation">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background particles/grid effect -->
+    <div class="tech-background">
+        <div class="grid-overlay"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1 class="brand-title">
+                    <span class="title-text">Dev Arts</span>
+                    <span class="title-glow"></span>
+                </h1>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#services" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="nav-toggle" id="navToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+        <!-- Scroll progress indicator -->
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </nav>
+
+    <!-- Main container -->
+    <div class="container">
+        <!-- Home section -->
+        <section id="home" class="section">
+            <div class="home-container">
+                <!-- Left content -->
+                <div class="home-content">
+                    <header class="header">
+                        <div class="header-content">
+                            <div class="header-line"></div>
+                            <p class="subtitle">Futuristic Digital Gallery</p>
+                            <p class="description">Showcasing cutting-edge creative work with immersive technology</p>
+                            <div class="home-cta">
+                                <a href="#portfolio" class="cta-button">
+                                    <span>Explore Gallery</span>
+                                    <div class="btn-glow"></div>
+                                </a>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+                
+                <!-- Right animation -->
+                <div class="home-animation">
+                    <div class="tech-art-container" id="techArtContainer">
+                        <!-- Circuit pattern background -->
+                        <div class="circuit-pattern">
+                            <svg class="circuit-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Circuit paths -->
+                                <path class="circuit-path path-1" d="M50 150 Q100 100 150 150 T250 150 Q300 100 350 150" stroke="#00ffff" stroke-width="2" fill="none"/>
+                                <path class="circuit-path path-2" d="M100 50 L100 100 L200 100 L200 200 L300 200" stroke="#ff00ff" stroke-width="2" fill="none"/>
+                                <path class="circuit-path path-3" d="M50 250 Q150 200 250 250 L350 250" stroke="#00ff41" stroke-width="2" fill="none"/>
+                                
+                                <!-- Circuit nodes -->
+                                <circle class="circuit-node node-1" cx="50" cy="150" r="4" fill="#00ffff"/>
+                                <circle class="circuit-node node-2" cx="150" cy="150" r="4" fill="#00ffff"/>
+                                <circle class="circuit-node node-3" cx="250" cy="150" r="4" fill="#00ffff"/>
+                                <circle class="circuit-node node-4" cx="350" cy="150" r="4" fill="#00ffff"/>
+                                <circle class="circuit-node node-5" cx="100" cy="100" r="4" fill="#ff00ff"/>
+                                <circle class="circuit-node node-6" cx="200" cy="100" r="4" fill="#ff00ff"/>
+                                <circle class="circuit-node node-7" cx="200" cy="200" r="4" fill="#ff00ff"/>
+                                <circle class="circuit-node node-8" cx="300" cy="200" r="4" fill="#ff00ff"/>
+                            </svg>
+                        </div>
+                        
+                        <!-- Geometric art shapes -->
+                        <div class="geometric-art">
+                            <div class="geo-shape triangle-1"></div>
+                            <div class="geo-shape triangle-2"></div>
+                            <div class="geo-shape hexagon-1"></div>
+                            <div class="geo-shape hexagon-2"></div>
+                            <div class="geo-shape circle-1"></div>
+                            <div class="geo-shape circle-2"></div>
+                        </div>
+                        
+                        <!-- Central tech logo -->
+                        <div class="tech-logo">
+                            <div class="logo-ring outer-ring"></div>
+                            <div class="logo-ring middle-ring"></div>
+                            <div class="logo-ring inner-ring"></div>
+                            <div class="logo-center">
+                                <span class="logo-text">DEV</span>
+                                <div class="logo-pulse"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Data streams -->
+                        <div class="data-streams">
+                            <div class="data-stream stream-1">
+                                <span class="data-bit">01</span>
+                                <span class="data-bit">10</span>
+                                <span class="data-bit">11</span>
+                                <span class="data-bit">00</span>
+                            </div>
+                            <div class="data-stream stream-2">
+                                <span class="data-bit">AI</span>
+                                <span class="data-bit">ML</span>
+                                <span class="data-bit">UX</span>
+                                <span class="data-bit">UI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio section -->
+        <section id="portfolio" class="section">
+            <!-- Loading indicator -->
+            <div class="loading-indicator" id="loadingIndicator">
+                <div class="loading-spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                </div>
+                <p>Loading Gallery...</p>
+            </div>
+
+            <!-- Gallery section -->
+            <main class="gallery-section">
+                <div class="section-header">
+                    <h2 class="section-title">Portfolio Gallery</h2>
+                    <p class="section-subtitle">Explore our creative projects</p>
+                </div>
+                
+                <!-- Filter buttons -->
+                <div class="filter-container">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="portrait">Portrait</button>
+                        <button class="filter-btn" data-filter="animals">Animals</button>
+                        <button class="filter-btn" data-filter="general">General</button>
+                    </div>
+                </div>
+                
+                <div class="gallery-container" id="galleryContainer">
+                    <!-- Images will be dynamically loaded here -->
+                </div>
+                
+                <!-- Load more button -->
+                <div class="load-more-container" id="loadMoreContainer">
+                    <button class="load-more-btn" id="loadMoreBtn">
+                        <span>Load More</span>
+                        <div class="btn-glow"></div>
+                    </button>
+                </div>
+            </main>
+        </section>
+
+        <!-- Services section -->
+        <section id="services" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Services</h2>
+                <p class="section-subtitle">What we offer</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Portraits</h3>
+                    <p>Making best moments on paper to remember life long</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <h3>Web Development</h3>
+                    <p>Responsive, high-performance websites with modern technologies</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Mobile Apps</h3>
+                    <p>Native and cross-platform mobile applications</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚀</div>
+                    <h3>Digital Arts</h3>
+                    <p>Emerging technologies and digital transformation solutions</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact section -->
+        <section id="contact" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Contact</h2>
+                <p class="section-subtitle">Let's create something amazing together</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>gamingspider0005@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📷</div>
+                        <div class="contact-details">
+                            <h4>Instagram</h4>
+                            <p>@_pencil__creations_</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📘</div>
+                        <div class="contact-details">
+                            <h4>Facebook</h4>
+                            <p>facebook.com/devarts</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form class="futuristic-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span>Send Message</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2024 Dev Arts. All rights reserved.</p>
+                <div class="tech-accent"></div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scroll to top button -->
+    <button class="scroll-to-top" id="scrollToTop" title="Back to top">
+        <span>↑</span>
+    </button>
+
+    <!-- Lightbox modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-overlay" id="lightboxOverlay"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <img class="lightbox-image" id="lightboxImage" src="" alt="">
+            <div class="lightbox-nav">
+                <button class="lightbox-prev" id="lightboxPrev">&#8249;</button>
+                <button class="lightbox-next" id="lightboxNext">&#8250;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html> 
