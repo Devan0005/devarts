@@ -49,7 +49,7 @@ class PortfolioGallery {
     async loadImages() {
         try {
             // 🔹 Fetch the image list from photos.json
-            const response = await fetch('photos.json');
+            const response = await fetch('https://raw.githubusercontent.com/Devan0005/devarts/main/photos.json');
             if (!response.ok) throw new Error('Failed to load images');
             const imageList = await response.json();
 
@@ -209,5 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
     new FormHandler();
     new MasonryOptimizer(document.getElementById('galleryContainer'));
 });
+
 
 
