@@ -1,9 +1,9 @@
 [
-  "photos/img1.jpg",
-  "photos/img2.jpg",
-  "photos/img3.jpg",
-  "photos/img4.jpg",
-  "photos/img5.jpg",
-  "photos/img6.jpg",
-  "photos/img7.jpg"
+  { "url": "photos/img1.jpg", "category": "portrait" },
+  { "url": "photos/img2.jpg", "category": "portrait" },
+  { "url": "photos/img3.jpg", "category": "animals" },
+  { "url": "photos/img4.jpg", "category": "animals" },
+  { "url": "photos/img5.jpg", "category": "general" },
+  { "url": "photos/img6.jpg", "category": "general" },
+  { "url": "photos/img7.jpg", "category": "portrait" }
 ]
