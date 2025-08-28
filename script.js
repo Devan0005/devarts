@@ -28,12 +28,12 @@ class NavigationManager {
 // Portfolio Gallery
 class PortfolioGallery {
     constructor() {
-        this.gallery = document.getElementById('gallery');
+        this.gallery = document.getElementById('galleryContainer');
         this.lightbox = document.getElementById('lightbox');
-        this.lightboxImage = document.getElementById('lightbox-img');
-        this.closeBtn = document.querySelector('.close');
-        this.prevBtn = document.querySelector('.prev');
-        this.nextBtn = document.querySelector('.next');
+        this.lightboxImage = document.getElementById('lightboxImage');
+        this.closeBtn = document.getElementById('lightboxClose');
+        this.prevBtn = document.getElementById('lightboxPrev');
+        this.nextBtn = document.getElementById('lightboxNext');
         this.filterBtns = document.querySelectorAll('.filter-btn');
         this.imageIndex = 0;
         this.images = [];
@@ -207,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gallery = new PortfolioGallery();
     AnimationUtils.init();
     new FormHandler();
-    new MasonryOptimizer(document.getElementById('gallery'));
+    new MasonryOptimizer(document.getElementById('galleryContainer'));
 });
+
 
