@@ -5,5 +5,6 @@
   { "url": "photos/img4.jpg", "category": "animals" },
   { "url": "photos/img5.jpg", "category": "general" },
   { "url": "photos/img6.jpg", "category": "general" },
-  { "url": "photos/img7.jpg", "category": "portrait" }
+  { "url": "photos/img7.jpg", "category": "portrait" },
+  { "url": "photos/img8.jpg", "category": "portrait" }
 ]
