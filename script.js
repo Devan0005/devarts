@@ -31,10 +31,12 @@ class PortfolioGallery {
         this.gallery = document.getElementById('galleryContainer');
         this.lightbox = document.getElementById('lightbox');
         this.lightboxImage = document.getElementById('lightboxImage');
+        this.lightboxOverlay = document.getElementById('lightboxOverlay');
         this.closeBtn = document.getElementById('lightboxClose');
         this.prevBtn = document.getElementById('lightboxPrev');
         this.nextBtn = document.getElementById('lightboxNext');
         this.filterBtns = document.querySelectorAll('.filter-btn');
+        this.loadingIndicator = document.getElementById('loadingIndicator');
         this.imageIndex = 0;
         this.images = [];
         this.filteredImages = [];
@@ -42,23 +44,50 @@ class PortfolioGallery {
     }
 
     async init() {
+        this.showLoading();
         await this.loadImages();
-        this.bindEvents();
+        this.hideLoading();
+        try {
+            this.bindEvents();
+        } catch (e) {
+            console.error('bindEvents failed:', e);
+        }
+    }
+
+    showLoading() {
+        if (this.loadingIndicator) {
+            this.loadingIndicator.style.display = 'flex';
+        }
+    }
+
+    hideLoading() {
+        if (this.loadingIndicator) {
+            this.loadingIndicator.style.display = 'none';
+        }
     }
 
     async loadImages() {
         try {
-            // 🔹 Fetch the image list from photos.json
-            const response = await fetch('photos.json');
-            if (!response.ok) throw new Error('Failed to load images');
-            const imageList = await response.json();
+            // Fetch the image list from photos.json (explicit relative path and no-cache)
+            const response = await fetch('./photos.json', { cache: 'no-store' });
+            if (!response.ok) throw new Error(`Failed to load images: ${response.status}`);
+            const raw = await response.json();
 
-            // Convert into objects for filtering
-            this.images = imageList.map((url, i) => ({
-                url,
-                category: i % 2 === 0 ? 'web' : 'app'
-            }));
+            // Normalize to an array of objects: [{ url: string, category: string }]
+            const toItem = (value) => {
+                if (!value) return null;
+                if (typeof value === 'string') return { url: value, category: 'general' };
+                if (typeof value.url === 'string') return { url: value.url, category: value.category || 'general' };
+                if (value.url && typeof value.url.href === 'string') return { url: value.url.href, category: value.category || 'general' };
+                return null;
+            };
 
+            const list = Array.isArray(raw) ? raw : (Array.isArray(raw.images) ? raw.images : []);
+            const normalized = list.map(toItem).filter(Boolean);
+
+            if (!normalized.length) throw new Error('No valid images in photos.json');
+
+            this.images = normalized;
             this.filteredImages = [...this.images];
             this.displayImages();
         } catch (error) {
@@ -69,16 +98,21 @@ class PortfolioGallery {
 
     displayImages() {
         this.gallery.innerHTML = '';
+        this.gallery.className = 'gallery-container masonry-grid';
         this.filteredImages.forEach((img, index) => {
             const item = document.createElement('div');
-            item.className = 'gallery-item';
+            item.className = 'image-card';
+            item.setAttribute('data-category', img.category);
             item.innerHTML = `
                 <img src="${img.url}" alt="Portfolio image ${index + 1}" loading="lazy">
-                <div class="overlay">
-                    <button class="view-btn" aria-label="View image">🔍</button>
+                <div class="image-overlay"></div>
+                <div class="image-actions">
+                    <button class="action-btn view-btn" aria-label="View image">
+                        <span>🔍</span>
+                    </button>
                 </div>
             `;
-            item.querySelector('.view-btn').addEventListener('click', () => this.openLightbox(index));
+            item.addEventListener('click', () => this.openLightbox(index));
             this.gallery.appendChild(item);
         });
     }
@@ -87,7 +121,74 @@ class PortfolioGallery {
         this.gallery.innerHTML = '<p>Gallery could not be loaded.</p>';
     }
 
-    // (rest of your code: lightbox, next/prev, filters… stays the same)
+    bindEvents() {
+        // Filter buttons
+        this.filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                this.filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                this.filterImages(filter);
+            });
+        });
+
+        // Lightbox events
+        this.closeBtn.addEventListener('click', () => this.closeLightbox());
+        this.lightboxOverlay.addEventListener('click', () => this.closeLightbox());
+        this.prevBtn.addEventListener('click', () => this.prevImage());
+        this.nextBtn.addEventListener('click', () => this.nextImage());
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (this.lightbox.classList.contains('active')) {
+                switch(e.key) {
+                    case 'Escape':
+                        this.closeLightbox();
+                        break;
+                    case 'ArrowLeft':
+                        this.prevImage();
+                        break;
+                    case 'ArrowRight':
+                        this.nextImage();
+                        break;
+                }
+            }
+        });
+    }
+
+    filterImages(category) {
+        if (category === 'all') {
+            this.filteredImages = [...this.images];
+        } else {
+            this.filteredImages = this.images.filter(img => img.category === category);
+        }
+        this.displayImages();
+    }
+
+    openLightbox(index) {
+        this.imageIndex = index;
+        this.lightboxImage.src = this.filteredImages[index].url;
+        this.lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    closeLightbox() {
+        this.lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    prevImage() {
+        this.imageIndex = (this.imageIndex - 1 + this.filteredImages.length) % this.filteredImages.length;
+        this.lightboxImage.src = this.filteredImages[this.imageIndex].url;
+    }
+
+    nextImage() {
+        this.imageIndex = (this.imageIndex + 1) % this.filteredImages.length;
+        this.lightboxImage.src = this.filteredImages[this.imageIndex].url;
+    }
 }
 
 // Animation Utils
@@ -162,9 +263,10 @@ class MasonryOptimizer {
 
     optimize() {
         if (!this.gallery) return;
-        const items = this.gallery.querySelectorAll('.gallery-item');
-        items.forEach(item => {
-            item.style.height = Math.random() > 0.5 ? '200px' : '300px';
+        const items = this.gallery.querySelectorAll('.image-card');
+        // Let CSS grid handle the layout naturally
+        items.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
         });
     }
 }
@@ -201,15 +303,57 @@ class SavedCollection {
     }
 }
 
+// Scroll to top functionality
+class ScrollManager {
+    constructor() {
+        this.scrollToTopBtn = document.getElementById('scrollToTop');
+        this.scrollProgress = document.getElementById('scrollProgress');
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        window.addEventListener('scroll', () => {
+            this.updateScrollProgress();
+            this.toggleScrollToTop();
+        });
+
+        if (this.scrollToTopBtn) {
+            this.scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+    }
+
+    updateScrollProgress() {
+        if (!this.scrollProgress) return;
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        this.scrollProgress.style.width = scrollPercent + '%';
+    }
+
+    toggleScrollToTop() {
+        if (!this.scrollToTopBtn) return;
+        if (window.pageYOffset > 300) {
+            this.scrollToTopBtn.classList.add('visible');
+        } else {
+            this.scrollToTopBtn.classList.remove('visible');
+        }
+    }
+}
+
 // Initialize everything
 document.addEventListener('DOMContentLoaded', () => {
     new NavigationManager();
     const gallery = new PortfolioGallery();
     AnimationUtils.init();
     new FormHandler();
+    new ScrollManager();
     new MasonryOptimizer(document.getElementById('galleryContainer'));
 });
-
 
 
 
