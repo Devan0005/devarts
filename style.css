@@ -1214,12 +1214,13 @@ body {
 }
 
 .image-card img {
-    width: 100%;
-    height: auto;
     display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
     transition: transform var(--transition-smooth);
     border-radius: 16px 16px 0 0;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .image-card:hover img {
