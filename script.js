@@ -345,45 +345,30 @@ class ScrollManager {
     }
 }
 
-// Initialize everything
-document.addEventListener('DOMContentLoaded', () => {
-    new NavigationManager();
-    const gallery = new PortfolioGallery();
-    AnimationUtils.init();
-    new FormHandler();
-    new ScrollManager();
-    new MasonryOptimizer(document.getElementById('galleryContainer'));
-});
-
-// ... existing code ...
-
-// Service Card Handler
-class ServiceCardHandler {
+// Contact Handler
+class ContactHandler {
     constructor() {
-        this.serviceCards = document.querySelectorAll('.service-card');
+        this.instagramItem = document.querySelector('.instagram-clickable');
         this.bindEvents();
     }
 
     bindEvents() {
-        this.serviceCards.forEach(card => {
-            const serviceTitle = card.querySelector('h3');
-            if (serviceTitle && serviceTitle.textContent.trim() === 'Web Development') {
-                card.style.cursor = 'pointer';
-                card.addEventListener('click', () => {
-                    window.open('https://devan0005.github.io/jarvis/', '_blank');
-                });
-                
-                // Add hover effect for better UX
-                card.addEventListener('mouseenter', () => {
-                    card.style.transform = 'translateY(-5px)';
-                    card.style.transition = 'transform 0.3s ease';
-                });
-                
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'translateY(0)';
-                });
-            }
-        });
+        if (this.instagramItem) {
+            this.instagramItem.style.cursor = 'pointer';
+            this.instagramItem.addEventListener('click', () => {
+                window.open('https://www.instagram.com/_pencil__creations_/', '_blank');
+            });
+            
+            // Add hover effect
+            this.instagramItem.addEventListener('mouseenter', () => {
+                this.instagramItem.style.transform = 'translateX(5px)';
+                this.instagramItem.style.transition = 'transform 0.3s ease';
+            });
+            
+            this.instagramItem.addEventListener('mouseleave', () => {
+                this.instagramItem.style.transform = 'translateX(0)';
+            });
+        }
     }
 }
 
@@ -394,8 +379,9 @@ document.addEventListener('DOMContentLoaded', () => {
     AnimationUtils.init();
     new FormHandler();
     new ScrollManager();
-    new ServiceCardHandler();
+    new ContactHandler();
     new MasonryOptimizer(document.getElementById('galleryContainer'));
 });
+
 
 
