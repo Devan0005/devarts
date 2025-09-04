@@ -355,5 +355,47 @@ document.addEventListener('DOMContentLoaded', () => {
     new MasonryOptimizer(document.getElementById('galleryContainer'));
 });
 
+// ... existing code ...
+
+// Service Card Handler
+class ServiceCardHandler {
+    constructor() {
+        this.serviceCards = document.querySelectorAll('.service-card');
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        this.serviceCards.forEach(card => {
+            const serviceTitle = card.querySelector('h3');
+            if (serviceTitle && serviceTitle.textContent.trim() === 'Web Development') {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => {
+                    window.open('https://devan0005.github.io/jarvis/', '_blank');
+                });
+                
+                // Add hover effect for better UX
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-5px)';
+                    card.style.transition = 'transform 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            }
+        });
+    }
+}
+
+// Initialize everything
+document.addEventListener('DOMContentLoaded', () => {
+    new NavigationManager();
+    const gallery = new PortfolioGallery();
+    AnimationUtils.init();
+    new FormHandler();
+    new ScrollManager();
+    new ServiceCardHandler();
+    new MasonryOptimizer(document.getElementById('galleryContainer'));
+});
 
 
